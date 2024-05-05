@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://inymyfmd2c4"]
+[gd_scene load_steps=3 format=3 uid="uid://inymyfmd2c4"]
 
 [ext_resource type="Texture2D" uid="uid://ba8r0t00554h3" path="res://Art/Buildings/buildings.png" id="1_am77t"]
+[ext_resource type="PackedScene" uid="uid://c7h0cvr2wor0c" path="res://Scenes/interactable.tscn" id="2_8h6ib"]
 
 [node name="House" type="StaticBody2D"]
 position = Vector2(332, 137)
@@ -12,3 +13,5 @@ polygon = PackedVector2Array(-22, 34, -27, 17, -31, 17, -29, -9, -4, -36, 3, -36
 texture = ExtResource("1_am77t")
 region_enabled = true
 region_rect = Rect2(0, 40, 63, 72)
+
+[node name="Interactable" parent="." instance=ExtResource("2_8h6ib")]

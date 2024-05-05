@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://dia1o8u02yhi4"]
+[gd_scene load_steps=33 format=3 uid="uid://dia1o8u02yhi4"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerCharacterMove.cs" id="1_gt352"]
 [ext_resource type="Texture2D" uid="uid://cx1lxs5mkd5yi" path="res://Art/Hero/Bodies/HeroBody.png" id="2_er0yr"]
 [ext_resource type="Texture2D" uid="uid://dtniivakjtl1p" path="res://Art/Hero/Clothes/hat_cowboy.png" id="3_2kgoi"]
 [ext_resource type="Texture2D" uid="uid://dtngagedf5hny" path="res://Art/Hero/Clothes/overalls.png" id="4_lf45k"]
 [ext_resource type="Texture2D" uid="uid://c5ts6gjf087w6" path="res://Art/Hero/Clothes/pants.png" id="5_pr8iv"]
+[ext_resource type="Script" path="res://Scripts/InteractableManager.cs" id="6_gic7r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gpkxh"]
 radius = 8.0
@@ -559,10 +560,14 @@ states/Moving/position = Vector2(542, 100)
 states/Start/position = Vector2(199, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8q06i"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_md5bf"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_eeyr0")]
 
-[node name="Hero" type="CharacterBody2D" node_paths=PackedStringArray("AnimationTree")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig6no"]
+radius = 15.0
+
+[node name="Hero" type="CharacterBody2D" node_paths=PackedStringArray("AnimationTree", "InteractableManager")]
 script = ExtResource("1_gt352")
 Speed = 100.0
 AnimationTree = NodePath("AnimationTree")
+InteractableManager = NodePath("InteractableManager")
 
 [node name="Body" type="Sprite2D" parent="."]
 position = Vector2(0, -13)
@@ -608,3 +613,11 @@ parameters/Idle/blend_position = Vector2(-0.530558, 0.762162)
 parameters/Moving/blend_position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="InteractableManager" type="Node2D" parent="." node_paths=PackedStringArray("ShapeCast")]
+script = ExtResource("6_gic7r")
+ShapeCast = NodePath("ShapeCast2D")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="InteractableManager"]
+shape = SubResource("CircleShape2D_ig6no")
+target_position = Vector2(0, 10)

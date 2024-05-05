@@ -1,8 +1,10 @@
-using EdensEdge.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace EdensEdge.Scripts;
 
+[Tool]
 public partial class PlayerCharacterMove : CharacterBody2D
 {
     private bool isMoving;
@@ -14,9 +16,33 @@ public partial class PlayerCharacterMove : CharacterBody2D
     [Export]
     public AnimationTree AnimationTree { get; set; }
 
+    [Export]
+    public InteractableManager InteractableManager { get; set; }
+
+    public override string[] _GetConfigurationWarnings()
+    {
+        var warnings = base._GetConfigurationWarnings()?.ToList() ?? new List<string>();
+
+        if (AnimationTree == null)
+        {
+            warnings.Add("An AnimationTree is required for this scene to work properly.");
+        }
+
+        if (Speed == 0)
+        {
+            warnings.Add("A speed of 0 will cause your player to not be able to move.");
+        }
+
+        if (InteractableManager == null)
+        {
+            warnings.Add("Interactable manager must be set to rotate the shapecast correctly.");
+        }
+
+        return warnings.ToArray();
+    }
+
     public override void _Ready()
     {
-        this.CheckRequiredDependency(AnimationTree, this.Name);
     }
 
     private void ProcessAnimation()
@@ -29,11 +55,22 @@ public partial class PlayerCharacterMove : CharacterBody2D
 
     public override void _Process(double delta)
     {
+        if (Engine.IsEditorHint()) return;
+
         ProcessAnimation();
+        UpdateInteractableManager();
     }
+
+    private void UpdateInteractableManager()
+    {
+        InteractableManager.Rotation = facingDirection.AngleTo(Vector2.Down) * -1;
+    }
+
 
     public override void _PhysicsProcess(double delta)
     {
+        if (Engine.IsEditorHint()) return;
+
         Vector2 direction = Input.GetVector("left", "right", "up", "down");
 
         if (direction != Vector2.Zero)
