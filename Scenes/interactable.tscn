@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Interactable.cs" id="1_qdbyh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2uqlj"]
-radius = 36.0139
+radius = 10.198
 
 [node name="Interactable" type="CollisionShape2D"]
 shape = SubResource("CircleShape2D_2uqlj")

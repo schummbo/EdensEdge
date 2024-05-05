@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://inymyfmd2c4" path="res://Scenes/house.tscn" id="1_bx4ax"]
 
 [node name="Environment" type="Node2D"]
+y_sort_enabled = true
 
 [node name="House" parent="." instance=ExtResource("1_bx4ax")]
 

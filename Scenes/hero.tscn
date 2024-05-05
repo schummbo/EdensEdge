@@ -7,9 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c5ts6gjf087w6" path="res://Art/Hero/Clothes/pants.png" id="5_pr8iv"]
 [ext_resource type="Script" path="res://Scripts/InteractableManager.cs" id="6_gic7r"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gpkxh"]
-radius = 8.0
-height = 26.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g462j"]
+size = Vector2(14, 9)
 
 [sub_resource type="Animation" id="Animation_m452x"]
 length = 0.001
@@ -564,6 +563,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 radius = 15.0
 
 [node name="Hero" type="CharacterBody2D" node_paths=PackedStringArray("AnimationTree", "InteractableManager")]
+y_sort_enabled = true
 script = ExtResource("1_gt352")
 Speed = 100.0
 AnimationTree = NodePath("AnimationTree")
@@ -594,8 +594,8 @@ hframes = 80
 vframes = 49
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8)
-shape = SubResource("CapsuleShape2D_gpkxh")
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_g462j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")

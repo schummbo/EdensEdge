@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dia1o8u02yhi4" path="res://Scenes/hero.tscn" id="2_unves"]
 
 [node name="Main" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Hero" parent="." instance=ExtResource("2_unves")]
 position = Vector2(74, 134)
