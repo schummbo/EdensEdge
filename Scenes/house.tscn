@@ -4,10 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://c7h0cvr2wor0c" path="res://Scenes/interactable.tscn" id="2_8h6ib"]
 
 [node name="House" type="StaticBody2D"]
+y_sort_enabled = true
 position = Vector2(332, 137)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-22, 34, -27, 17, -31, 17, -29, -9, -4, -36, 3, -36, 9, -29, 13, -32, 20, -31, 21, -24, 19, -21, 19, -17, 29, -10, 31, 19, 26, 20, 23, 35)
+polygon = PackedVector2Array(-22, 34, -27, 17, -31, 17, 30, 16, 26, 20, 23, 35)
 
 [node name="HouseSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_am77t")
@@ -15,3 +16,4 @@ region_enabled = true
 region_rect = Rect2(0, 40, 63, 72)
 
 [node name="Interactable" parent="." instance=ExtResource("2_8h6ib")]
+position = Vector2(0, 24)
