@@ -5,8 +5,8 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Environment" parent="." instance=ExtResource("1_jdgo0")]
-position = Vector2(-160, -31)
-
 [node name="Hero" parent="." instance=ExtResource("2_unves")]
 position = Vector2(74, 134)
+
+[node name="Environment" parent="." instance=ExtResource("1_jdgo0")]
+position = Vector2(-160, -31)
