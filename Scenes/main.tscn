@@ -1,8 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://b14snstfixkhl"]
+[gd_scene load_steps=8 format=3 uid="uid://b14snstfixkhl"]
 
 [ext_resource type="PackedScene" uid="uid://c2j77qomnj4qb" path="res://Scenes/House/house.tscn" id="1_ia0t0"]
 [ext_resource type="PackedScene" uid="uid://dia1o8u02yhi4" path="res://Scenes/Hero/hero.tscn" id="2_rxoo6"]
 [ext_resource type="PackedScene" uid="uid://c3y30spalv8c4" path="res://Scenes/Chest/Chest.tscn" id="3_ot06o"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_vebdr"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_acbrv"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_uipnq"]
+
+[sub_resource type="Resource" id="Resource_qg12k"]
+script = ExtResource("6_uipnq")
+duration = 1.0
+transition = 0
+ease = 2
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
@@ -18,3 +27,19 @@ position = Vector2(362, 120)
 
 [node name="Chest" parent="." instance=ExtResource("3_ot06o")]
 position = Vector2(298, 158)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(111, 182)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("4_vebdr")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+position = Vector2(111, 182)
+script = ExtResource("5_acbrv")
+follow_mode = 1
+follow_target = NodePath("../Hero")
+tween_resource = SubResource("Resource_qg12k")
+follow_damping = true
+follow_damping_value = Vector2(0.15, 0.15)
+draw_limits = true
