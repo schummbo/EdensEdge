@@ -1,13 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://by2meul43c8kw"]
+[gd_scene load_steps=4 format=3 uid="uid://b14snstfixkhl"]
 
-[ext_resource type="PackedScene" uid="uid://d2v68kvxxymqt" path="res://Scenes/environment.tscn" id="1_jdgo0"]
-[ext_resource type="PackedScene" uid="uid://dia1o8u02yhi4" path="res://Scenes/hero.tscn" id="2_unves"]
+[ext_resource type="PackedScene" uid="uid://c2j77qomnj4qb" path="res://Scenes/House/house.tscn" id="1_ia0t0"]
+[ext_resource type="PackedScene" uid="uid://dia1o8u02yhi4" path="res://Scenes/Hero/hero.tscn" id="2_rxoo6"]
+[ext_resource type="PackedScene" uid="uid://c3y30spalv8c4" path="res://Scenes/Chest/Chest.tscn" id="3_ot06o"]
 
-[node name="Main" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 y_sort_enabled = true
 
-[node name="Hero" parent="." instance=ExtResource("2_unves")]
-position = Vector2(74, 134)
+[node name="House" parent="." instance=ExtResource("1_ia0t0")]
+position = Vector2(221, 121)
 
-[node name="Environment" parent="." instance=ExtResource("1_jdgo0")]
-position = Vector2(-160, -31)
+[node name="Hero" parent="." instance=ExtResource("2_rxoo6")]
+position = Vector2(111, 182)
+
+[node name="House2" parent="." instance=ExtResource("1_ia0t0")]
+position = Vector2(362, 120)
+
+[node name="Chest" parent="." instance=ExtResource("3_ot06o")]
+position = Vector2(298, 158)

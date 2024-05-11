@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2j77qomnj4qb"]
+
+[ext_resource type="Texture2D" uid="uid://ba8r0t00554h3" path="res://Art/Buildings/buildings.png" id="1_am77t"]
+[ext_resource type="Script" path="res://Scenes/House/House.cs" id="1_schdm"]
+[ext_resource type="PackedScene" uid="uid://bpslwwxl5ljwu" path="res://System/Interactable/Interactable.tscn" id="3_e5til"]
+[ext_resource type="PackedScene" uid="uid://d4jwqglvm8nnh" path="res://Scenes/Light/Light.tscn" id="4_sty8k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0mko"]
+size = Vector2(96, 68.9696)
+
+[node name="House" type="StaticBody2D"]
+position = Vector2(0, -13)
+script = ExtResource("1_schdm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-0.0285835, -23.9696)
+shape = SubResource("RectangleShape2D_f0mko")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(1, -45)
+scale = Vector2(1.58821, 1.58821)
+texture = ExtResource("1_am77t")
+region_enabled = true
+region_rect = Rect2(0, 39, 63, 73)
+
+[node name="Interactable" parent="." instance=ExtResource("3_e5til")]
+
+[node name="Light" parent="." instance=ExtResource("4_sty8k")]
+position = Vector2(38, -16)
