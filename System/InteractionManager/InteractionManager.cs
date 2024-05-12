@@ -29,11 +29,14 @@ public partial class InteractionManager : Node2D
 		interactableAreas.Remove(interactable);
 	}
 
-	public void Interact()
+	public bool Interact()
 	{
-		if (interactableAreas.Any())
+		if (!interactableAreas.Any())
 		{
-			interactableAreas.First().Interact();
+			return false;
 		}
+
+		interactableAreas.First().Interact();
+		return true;
 	}
 }

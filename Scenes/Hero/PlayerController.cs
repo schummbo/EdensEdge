@@ -54,7 +54,14 @@ public partial class PlayerController : CharacterBody2D
     {
         if (inputEvent.IsActionPressed("interact"))
         {
-            InteractionManager.Instance.Interact();
+            var interacted = InteractionManager.Instance.Interact();
+            GD.Print("Interacted: " + interacted);
+        }
+
+        if (inputEvent.IsActionPressed("useitem"))
+        {
+            bool interacted = FarmingManager.Instance.Interact();
+            GD.Print("UseItem: " + interacted);
         }
     }
 }
