@@ -1,19 +1,8 @@
-using Godot;
 using System;
-using System.Collections.Generic;
+using Godot;
 
 public partial class Field : TileMap
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
 	internal void SetMarker(Vector2I closestToMouse)
 	{
 		this.SetCell(2, closestToMouse, 1, new Vector2I(0, 0));
@@ -22,5 +11,16 @@ public partial class Field : TileMap
 	internal void RemoveMarker(Vector2I previousMarker)
 	{
 		this.SetCell(2, previousMarker, 1);
+	}
+
+	internal bool UseToolOnTile(Vector2I tile)
+	{
+		TileData tileData = this.GetCellTileData(1, tile);
+		if (tileData == null)
+			return false;
+
+		Variant customData = tileData.GetCustomDataByLayerId(0);
+
+		return customData.As<bool>();
 	}
 }

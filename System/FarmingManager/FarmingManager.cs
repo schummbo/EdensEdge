@@ -1,3 +1,4 @@
+using System;
 using EdensEdge.Scripts;
 using Godot;
 
@@ -70,4 +71,15 @@ public partial class FarmingManager : Node2D
 
 		return (Vector2I)closestTilePos;
 	}
+
+	internal bool Interact()
+	{
+		if (previousMarker.HasValue)
+		{
+			return field.UseToolOnTile(previousMarker.Value);
+		}
+
+		return false;
+	}
+
 }
