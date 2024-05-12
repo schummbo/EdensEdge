@@ -559,7 +559,7 @@ states/Start/position = Vector2(199, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8q06i"), "Idle", "Moving", SubResource("AnimationNodeStateMachineTransition_md5bf"), "Moving", "Idle", SubResource("AnimationNodeStateMachineTransition_eeyr0")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ks3kv"]
-radius = 15.1327
+radius = 12.0416
 
 [node name="Hero" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_gt352")
@@ -609,6 +609,7 @@ parameters/Idle/blend_position = Vector2(-0.530558, 0.762162)
 parameters/Moving/blend_position = Vector2(0, 0)
 
 [node name="InteractableDetector" type="Area2D" parent="."]
+position = Vector2(0, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableDetector"]
 shape = SubResource("CircleShape2D_ks3kv")
