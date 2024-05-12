@@ -27,6 +27,7 @@ region_enabled = true
 region_rect = Rect2(0, 39, 63, 73)
 
 [node name="Interactable" parent="." instance=ExtResource("3_e5til")]
+scale = Vector2(0.76, 0.76)
 
 [node name="Light" parent="." instance=ExtResource("4_sty8k")]
 position = Vector2(38, -16)

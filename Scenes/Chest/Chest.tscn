@@ -94,12 +94,12 @@ animation = &"open"
 frame = 5
 frame_progress = 0.24117
 
-[node name="Interactable" parent="." instance=ExtResource("2_q17ee")]
-position = Vector2(-9, 4)
-scale = Vector2(1.36, 1.36)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-7.5, 8.5)
 shape = SubResource("RectangleShape2D_waxwd")
+
+[node name="Interactable" parent="." instance=ExtResource("2_q17ee")]
+position = Vector2(-7, 5)
+scale = Vector2(1, 1)
