@@ -946,12 +946,15 @@ texture = ExtResource("1_24t7c")
 19:6/0 = 0
 19:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 19:6/0/physics_layer_0/angular_velocity = 0.0
+19:6/0/custom_data_0 = true
 20:6/0 = 0
 20:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 20:6/0/physics_layer_0/angular_velocity = 0.0
+20:6/0/custom_data_0 = true
 21:6/0 = 0
 21:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 21:6/0/physics_layer_0/angular_velocity = 0.0
+21:6/0/custom_data_0 = true
 27:6/0 = 0
 27:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 27:6/0/physics_layer_0/angular_velocity = 0.0
@@ -5020,4 +5023,6 @@ texture = ExtResource("1_24t7c")
 
 [resource]
 physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "CanFarm"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_x213k")
