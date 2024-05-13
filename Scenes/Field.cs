@@ -17,21 +17,6 @@ public partial class Field : TileMap
 		Marker = 1
 	}
 
-	private static readonly Vector2I PlowedTile = new Vector2I(8, 6);
-
-	private Dictionary<Vector2I, CropData> fieldData = new Dictionary<Vector2I, CropData>();
-
-	public override void _Ready()
-	{
-		for (int x = 19; x <= 29; x++)
-		{
-			for (int y = 12; y <= 14; y++)
-			{
-				fieldData.Add(new Vector2I(x, y), new CropData());
-			}
-		}
-	}
-
 	internal void SetMarker(Vector2I closestToMouse)
 	{
 		this.SetCell(
@@ -51,50 +36,24 @@ public partial class Field : TileMap
 
 	internal bool UseToolOnTile(Vector2I tile) //Tool tool
 	{
-		GD.Print(tile);
+		var result = CropManager.Instance.TryUseToolOnTile(tile);
 
-		if (!fieldData.TryGetValue(tile, out CropData tileCrop))
+		if (!result.Success)
 		{
 			return false;
 		}
 
-		GD.Print(tileCrop.State);
-
-		if (tileCrop.State == CropState.Unplowed)
-		{
-			tileCrop.State++;
-		}
-		else if (tileCrop.State == CropState.Plowed)
-		{
-			tileCrop.State++;
-		}
-		else if (tileCrop.State == CropState.Growing)
-		{
-			tileCrop.State++;
-		}
-		else
-		{
-			return false;
-		}
-
-		GD.Print(tileCrop.State);
-
-		RedrawTile(tile);
+		RedrawTile(tile, result.NewTileResult.Value);
 
 		return true;
 	}
 
-	private void RedrawTile(Vector2I tile)
+	private void RedrawTile(Vector2I tilePos, Vector2I newTile)
 	{
-		if (!fieldData.TryGetValue(tile, out CropData tileCrop))
-		{
-			return;
-		}
-
-		if (tileCrop.State == CropState.Plowed)
-		{
-			this.SetCell((int)TileMapLayers.Field, tile, (int)TileSets.Ground, PlowedTile);
-		}
+		this.SetCell(
+			(int)TileMapLayers.Field,
+			tilePos,
+			(int)TileSets.Ground,
+			newTile);
 	}
-
 }
