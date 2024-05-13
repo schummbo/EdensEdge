@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 InteractionManager="*res://System/InteractionManager/InteractionManager.tscn"
 FarmingManager="*res://System/FarmingManager/FarmingManager.tscn"
+CropManager="*res://System/CropManager/CropManager.tscn"
 
 [display]
 
