@@ -1,4 +1,3 @@
-using System;
 using EdensEdge.Scripts;
 using Godot;
 
@@ -74,5 +73,4 @@ public partial class FarmingManager : Node2D
 
 		return false;
 	}
-
 }
