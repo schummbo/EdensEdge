@@ -38,15 +38,6 @@ public partial class Field : TileMap
 			(int)TileSets.Marker);
 	}
 
-	private void RedrawTile(Vector2I tilePos, Vector2I newTile)
-	{
-		this.SetCell(
-			(int)TileMapLayers.Field,
-			tilePos,
-			(int)TileSets.Ground,
-			newTile);
-	}
-
 	internal void UpdateCrop(CropData crop)
 	{
 		if (crop.State == CropState.Unplowed)
