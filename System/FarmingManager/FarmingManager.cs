@@ -96,6 +96,7 @@ public partial class FarmingManager : Node2D
 		field.UpdateCrop(crop);
 	}
 
+	// TODO: Pass tool and apply tool rules to states
 	public bool TendCrop(Vector2I tile)
 	{
 		if (!crops.TryGetValue(tile, out CropData crop))
