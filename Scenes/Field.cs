@@ -1,6 +1,5 @@
-using Godot;
 using System;
-using System.Collections.Generic;
+using Godot;
 
 public partial class Field : TileMap
 {
@@ -8,14 +7,19 @@ public partial class Field : TileMap
 	{
 		Ground = 0,
 		Field = 1,
-		Marker = 2
+		Crops = 2,
+		Marker = 3
 	}
 
 	private enum TileSets
 	{
 		Ground = 0,
-		Marker = 1
+		Marker = 1,
+		Crops = 2
 	}
+
+	private Vector2I UnplowedTile = new Vector2I(5, 6);
+	private Vector2I PlowedTile = new Vector2I(8, 6);
 
 	internal void SetMarker(Vector2I closestToMouse)
 	{
@@ -34,20 +38,6 @@ public partial class Field : TileMap
 			(int)TileSets.Marker);
 	}
 
-	internal bool UseToolOnTile(Vector2I tile) //Tool tool
-	{
-		var result = CropManager.Instance.TryUseToolOnTile(tile);
-
-		if (!result.Success)
-		{
-			return false;
-		}
-
-		RedrawTile(tile, result.NewTileResult.Value);
-
-		return true;
-	}
-
 	private void RedrawTile(Vector2I tilePos, Vector2I newTile)
 	{
 		this.SetCell(
@@ -56,4 +46,50 @@ public partial class Field : TileMap
 			(int)TileSets.Ground,
 			newTile);
 	}
+
+	internal void UpdateCrop(CropData crop)
+	{
+		if (crop.State == CropState.Unplowed)
+		{
+			this.SetCell(
+				(int)TileMapLayers.Field,
+				crop.Tile,
+				(int)TileSets.Ground,
+				UnplowedTile);
+
+			this.SetCell(
+				(int)TileMapLayers.Crops,
+				crop.Tile);
+
+			return;
+		}
+
+		if (crop.State == CropState.Plowed)
+		{
+			this.SetCell(
+				(int)TileMapLayers.Field,
+				crop.Tile,
+				(int)TileSets.Ground,
+				PlowedTile);
+
+
+			this.SetCell(
+				(int)TileMapLayers.Crops,
+				crop.Tile);
+
+			return;
+		}
+
+		if (crop.State == CropState.Growing || crop.State == CropState.ReadyForHarvest)
+		{
+			this.SetCell(
+				(int)TileMapLayers.Crops,
+				crop.Tile,
+				(int)TileSets.Crops,
+				crop.TileMap);
+
+			return;
+		}
+	}
+
 }
