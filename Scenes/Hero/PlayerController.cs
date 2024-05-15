@@ -63,5 +63,10 @@ public partial class PlayerController : CharacterBody2D
             bool interacted = FarmingManager.Instance.Interact();
             GD.Print("UseItem: " + interacted);
         }
+
+        if (inputEvent.IsActionPressed("tick"))
+        {
+            FarmingManager.Instance.HandleTick();
+        }
     }
 }

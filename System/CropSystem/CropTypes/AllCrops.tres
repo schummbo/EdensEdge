@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AllCropsTemplate" load_steps=3 format=3 uid="uid://dtc5p3n5eeo07"]
+
+[ext_resource type="Resource" uid="uid://crx5rp17w7lvk" path="res://System/CropSystem/CropTypes/Cabbage.tres" id="1_3xwbe"]
+[ext_resource type="Script" path="res://System/CropSystem/AllCropsTemplate.cs" id="1_x2yw1"]
+
+[resource]
+script = ExtResource("1_x2yw1")
+AllCrops = Array[Object]([ExtResource("1_3xwbe")])

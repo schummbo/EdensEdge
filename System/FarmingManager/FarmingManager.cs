@@ -1,5 +1,7 @@
 using EdensEdge.Scripts;
 using Godot;
+using System;
+using System.Collections.Generic;
 
 public partial class FarmingManager : Node2D
 {
@@ -10,12 +12,23 @@ public partial class FarmingManager : Node2D
 
 	private Vector2I? previousMarker;
 
+	private Dictionary<Vector2, CropData> crops;
+	private AllCropsTemplate allCropTemplates;
+
 	public override void _Ready()
 	{
 		Instance = this;
 
 		player = this.GetTree().GetFirstNodeInGroup("Player") as PlayerController;
 		field = this.GetTree().GetFirstNodeInGroup("Field") as Field;
+
+		// initialize the fields dynamically somehow
+		crops = new Dictionary<Vector2, CropData>
+		{
+			{ new Vector2I(19, 12), new CropData { Tile = new Vector2I(19, 12) } }
+		};
+
+		allCropTemplates = GD.Load<AllCropsTemplate>("res://System/CropSystem/CropTypes/AllCrops.tres");
 	}
 
 	public override void _Process(double delta)
@@ -68,9 +81,76 @@ public partial class FarmingManager : Node2D
 	{
 		if (previousMarker.HasValue)
 		{
-			return field.UseToolOnTile(previousMarker.Value);
+			if (TendCrop(previousMarker.Value))
+			{
+				RenderTile(previousMarker.Value);
+			}
 		}
 
 		return false;
+	}
+
+	private void RenderTile(Vector2I tile)
+	{
+		var crop = crops[tile];
+		field.UpdateCrop(crop);
+	}
+
+	// TODO: Pass tool and apply tool rules to states
+	public bool TendCrop(Vector2I tile)
+	{
+		if (!crops.TryGetValue(tile, out CropData crop))
+		{
+			return false;
+		}
+
+		CropTemplate cropTemplate = null;
+
+		if (crop.Name != null)
+		{
+			cropTemplate = allCropTemplates.GetCropTemplate(crop.Name);
+		}
+
+		var stateMachine = new CropStateMachine(crop, cropTemplate);
+
+		if (stateMachine.CanPlow())
+		{
+			stateMachine.Plow();
+			return true;
+		}
+
+		if (stateMachine.CanSeed())
+		{
+			var cabbage = allCropTemplates.GetCropTemplate("cabbage");
+			stateMachine.Seed(cabbage);
+			return true;
+		}
+
+		if (stateMachine.CanHarvest())
+		{
+			stateMachine.Harvest();
+			return true;
+		}
+
+		return false;
+	}
+
+	//TODO: Make private and handle tick event from time keeper
+	public void HandleTick()
+	{
+		foreach (CropData crop in crops.Values)
+		{
+			if (crop.State != CropState.Growing)
+			{
+				return;
+			}
+
+			var template = allCropTemplates.GetCropTemplate(crop.Name);
+
+			var sm = new CropStateMachine(crop, template);
+			sm.Grow();
+
+			field.UpdateCrop(crop);
+		}
 	}
 }
