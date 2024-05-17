@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b14snstfixkhl"]
+[gd_scene load_steps=12 format=3 uid="uid://b14snstfixkhl"]
 
 [ext_resource type="PackedScene" uid="uid://c2j77qomnj4qb" path="res://Scenes/House/house.tscn" id="1_ia0t0"]
 [ext_resource type="TileSet" uid="uid://l6vsurgm88qf" path="res://Tilesets/main.tres" id="1_nnv7e"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_vebdr"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_acbrv"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_uipnq"]
+[ext_resource type="PackedScene" uid="uid://bdgfmo84pvty7" path="res://Scenes/Inventory/Inventory.tscn" id="9_w5b1u"]
+[ext_resource type="Resource" uid="uid://c1of8pax2crcy" path="res://System/InventorySystem/Inventories/PlayerInventory.tres" id="10_fvmnn"]
 
 [sub_resource type="Resource" id="Resource_qg12k"]
 script = ExtResource("6_uipnq")
@@ -60,3 +62,12 @@ tween_resource = SubResource("Resource_qg12k")
 follow_damping = true
 follow_damping_value = Vector2(0.15, 0.15)
 draw_limits = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory UI" parent="CanvasLayer" instance=ExtResource("9_w5b1u")]
+offset_left = 183.0
+offset_top = 185.0
+offset_right = 311.0
+offset_bottom = 237.0
+PlayerInventory = ExtResource("10_fvmnn")

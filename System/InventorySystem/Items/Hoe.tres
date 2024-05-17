@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://bo4chr1gnon0n"]
+
+[ext_resource type="Script" path="res://System/InventorySystem/ItemResource.cs" id="1_0cq3s"]
+[ext_resource type="Texture2D" uid="uid://dvcnkf3ilh6x3" path="res://Art/Tools/hoe.png" id="1_o2718"]
+
+[resource]
+script = ExtResource("1_0cq3s")
+Name = "Hoe"
+Texture = ExtResource("1_o2718")

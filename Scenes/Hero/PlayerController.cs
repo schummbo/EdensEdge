@@ -10,8 +10,9 @@ public partial class PlayerController : CharacterBody2D
 
     private AnimationTree animationTree;
 
-    [Export]
-    public float Speed { get; set; } = 150;
+    [Export] public float Speed { get; set; } = 150;
+
+    [Export] public Inventory PlayerInventory { get; set; }
 
     public override void _Ready()
     {
