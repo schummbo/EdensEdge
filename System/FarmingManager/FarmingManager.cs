@@ -77,11 +77,11 @@ public partial class FarmingManager : Node2D
 		return (Vector2I)closestTilePos;
 	}
 
-	internal bool Interact()
+	internal bool Interact(ItemResource item)
 	{
 		if (previousMarker.HasValue)
 		{
-			if (TendCrop(previousMarker.Value))
+			if (TendCrop(previousMarker.Value, item))
 			{
 				RenderTile(previousMarker.Value);
 			}
@@ -97,8 +97,13 @@ public partial class FarmingManager : Node2D
 	}
 
 	// TODO: Pass tool and apply tool rules to states
-	public bool TendCrop(Vector2I tile)
+	public bool TendCrop(Vector2I tile, ItemResource itemResource)
 	{
+		if (itemResource == null)
+		{
+			return false;
+		}
+
 		if (!crops.TryGetValue(tile, out CropData crop))
 		{
 			return false;
@@ -113,7 +118,7 @@ public partial class FarmingManager : Node2D
 
 		var stateMachine = new CropStateMachine(crop, cropTemplate);
 
-		if (stateMachine.CanPlow())
+		if (stateMachine.CanPlow() && itemResource.Name == "Hoe")
 		{
 			stateMachine.Plow();
 			return true;
