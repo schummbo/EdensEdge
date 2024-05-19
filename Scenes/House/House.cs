@@ -14,7 +14,8 @@ public partial class House : StaticBody2D
 		sconce = GetNode<Light>("Light");
 	}
 
-	private void HandleInteraction()
+
+	private void HandleInteraction(ItemResource item)
 	{
 		sconce.Toggle();
 	}

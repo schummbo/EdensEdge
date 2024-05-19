@@ -5,9 +5,9 @@ namespace EdensEdge.Scripts;
 
 public partial class PlayerController : CharacterBody2D
 {
+    private ItemResource equippedItem;
     private bool isMoving;
     private Vector2 facingDirection;
-
     private AnimationTree animationTree;
 
     [Export] public float Speed { get; set; } = 150;
@@ -17,7 +17,14 @@ public partial class PlayerController : CharacterBody2D
     public override void _Ready()
     {
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
+        EventBus.Instance.OnInventoryItemSelected += HandleInventoryItemSelected;
     }
+
+    private void HandleInventoryItemSelected(ItemResource resource)
+    {
+        this.equippedItem = resource;
+    }
+
 
     private void ProcessAnimation()
     {
@@ -55,13 +62,13 @@ public partial class PlayerController : CharacterBody2D
     {
         if (inputEvent.IsActionPressed("interact"))
         {
-            var interacted = InteractionManager.Instance.Interact();
+            var interacted = InteractionManager.Instance.Interact(equippedItem);
             GD.Print("Interacted: " + interacted);
         }
 
         if (inputEvent.IsActionPressed("useitem"))
         {
-            bool interacted = FarmingManager.Instance.Interact();
+            bool interacted = FarmingManager.Instance.Interact(equippedItem);
             GD.Print("UseItem: " + interacted);
         }
 

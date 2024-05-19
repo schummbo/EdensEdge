@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Godot;
 
@@ -14,8 +15,24 @@ public partial class InventoryUI : Control
 		var ninePatch = this.GetNode<NinePatchRect>("NinePatchRect");
 		slots = ninePatch.GetChild(0).GetChildren().Select(c => c as InventorySlot).ToArray();
 
+		foreach (var slot in slots)
+		{
+			slot.OnSelected += HandleSelected;
+		}
+
 		Close();
 		UpdateSlots();
+	}
+
+	private void HandleSelected(InventorySlot selectedSlot)
+	{
+		foreach (var slot in slots)
+		{
+			if (slot != selectedSlot)
+			{
+				slot.IsSelected = false;
+			}
+		}
 	}
 
 	public override void _Process(double delta)

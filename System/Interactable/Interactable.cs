@@ -4,7 +4,7 @@ using System.Buffers;
 
 public partial class Interactable : Area2D
 {
-	public Action Interact { get; set; }
+	public Action<ItemResource> Interact;
 
 	public override void _Ready()
 	{

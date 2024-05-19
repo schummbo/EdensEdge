@@ -17,7 +17,7 @@ public partial class Chest : Node2D
 		animatedSprite2D = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
 
-	private void HandleInteract()
+	private void HandleInteract(ItemResource item)
 	{
 		if (!isOpen)
 		{
