@@ -18,11 +18,11 @@ public class CropStateMachine(CropData crop)
         return crop.State == CropState.Plowed;
     }
 
-    public void Seed(CropTemplate cabbage)
+    public void Seed(CropTemplate cropTemplate)
     {
         crop.State = CropState.Growing;
-        crop.CropGrowing = cabbage;
-        crop.TileMap = cabbage.GrowthPhases.First().GrowthTile;
+        crop.CropGrowing = cropTemplate;
+        crop.TileMap = cropTemplate.GrowthPhases.First().GrowthTile;
     }
 
     public bool CanHarvest()
