@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://cr2hyk7ug4laq"]
+
+[ext_resource type="Resource" uid="uid://crx5rp17w7lvk" path="res://Crops/Plants/Cabbage.tres" id="1_80saa"]
+[ext_resource type="Script" path="res://System/InventorySystem/ItemResource.cs" id="1_w2183"]
+
+[resource]
+script = ExtResource("1_w2183")
+Name = "Cabbage Seed"
+TileSet = 3
+TileSetPosition = Vector2i(1, 1)
+ProducesWhenGrown = ExtResource("1_80saa")
+Stackable = true
+DestroyedOnUse = true

@@ -13,7 +13,6 @@ public partial class FarmingManager : Node2D
 	private Vector2I? previousMarker;
 
 	private Dictionary<Vector2, CropData> crops;
-	private AllCropsTemplate allCropTemplates;
 
 	public override void _Ready()
 	{
@@ -27,8 +26,6 @@ public partial class FarmingManager : Node2D
 		{
 			{ new Vector2I(19, 12), new CropData { Tile = new Vector2I(19, 12) } }
 		};
-
-		allCropTemplates = GD.Load<AllCropsTemplate>("res://System/CropSystem/CropTypes/AllCrops.tres");
 	}
 
 	public override void _Process(double delta)
@@ -84,6 +81,7 @@ public partial class FarmingManager : Node2D
 			if (TendCrop(previousMarker.Value, item))
 			{
 				RenderTile(previousMarker.Value);
+				return true;
 			}
 		}
 
@@ -109,14 +107,7 @@ public partial class FarmingManager : Node2D
 			return false;
 		}
 
-		CropTemplate cropTemplate = null;
-
-		if (crop.Name != null)
-		{
-			cropTemplate = allCropTemplates.GetCropTemplate(crop.Name);
-		}
-
-		var stateMachine = new CropStateMachine(crop, cropTemplate);
+		var stateMachine = new CropStateMachine(crop);
 
 		if (stateMachine.CanPlow() && itemResource.Name == "Hoe")
 		{
@@ -124,16 +115,17 @@ public partial class FarmingManager : Node2D
 			return true;
 		}
 
-		if (stateMachine.CanSeed())
+		if (stateMachine.CanSeed() && itemResource.ProducesWhenGrown != null)
 		{
-			var cabbage = allCropTemplates.GetCropTemplate("cabbage");
-			stateMachine.Seed(cabbage);
+			var item = itemResource.ProducesWhenGrown;
+			stateMachine.Seed(item);
 			return true;
 		}
 
 		if (stateMachine.CanHarvest())
 		{
-			stateMachine.Harvest();
+			var grown = stateMachine.Harvest();
+			EventBus.Instance.InventoryItemAdded(grown, 1);
 			return true;
 		}
 
@@ -150,9 +142,7 @@ public partial class FarmingManager : Node2D
 				return;
 			}
 
-			var template = allCropTemplates.GetCropTemplate(crop.Name);
-
-			var sm = new CropStateMachine(crop, template);
+			var sm = new CropStateMachine(crop);
 			sm.Grow();
 
 			field.UpdateCrop(crop);

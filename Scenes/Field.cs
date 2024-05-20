@@ -1,23 +1,7 @@
-using System;
 using Godot;
 
 public partial class Field : TileMap
 {
-	private enum TileMapLayers
-	{
-		Ground = 0,
-		Field = 1,
-		Crops = 2,
-		Marker = 3
-	}
-
-	private enum TileSets
-	{
-		Ground = 0,
-		Marker = 1,
-		Crops = 2
-	}
-
 	private Vector2I UnplowedTile = new Vector2I(5, 6);
 	private Vector2I PlowedTile = new Vector2I(8, 6);
 

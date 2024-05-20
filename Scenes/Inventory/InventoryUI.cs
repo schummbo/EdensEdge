@@ -22,6 +22,31 @@ public partial class InventoryUI : Control
 
 		Close();
 		UpdateSlots();
+
+		EventBus.Instance.OnInventoryItemUsed += HandleInventoryItemUsed;
+		EventBus.Instance.OnInventoryItemAdded += HandleInventoryItemAdded;
+	}
+
+	private void HandleInventoryItemAdded(ItemResource resource, int amountToAdd)
+	{
+		foreach (var slot in slots)
+		{
+			if (slot.TryAddInventory(resource, amountToAdd))
+			{
+				return;
+			}
+		}
+	}
+
+	private void HandleInventoryItemUsed(ItemResource resource)
+	{
+		foreach (var slot in slots)
+		{
+			if (slot.TryReduceInventory(resource, 1))
+			{
+				return;
+			}
+		}
 	}
 
 	private void HandleSelected(InventorySlot selectedSlot)
@@ -57,7 +82,7 @@ public partial class InventoryUI : Control
 			var slot = slots[i];
 			var item = PlayerInventory.Items[i];
 
-			slot.Update(item);
+			slot.TryAddInventory(item, 1);
 		}
 	}
 

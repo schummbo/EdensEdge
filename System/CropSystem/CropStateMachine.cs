@@ -1,7 +1,7 @@
 using System.Linq;
 using Godot;
 
-public class CropStateMachine(CropData crop, CropTemplate cropTemplate)
+public class CropStateMachine(CropData crop)
 {
     public bool CanPlow()
     {
@@ -18,11 +18,11 @@ public class CropStateMachine(CropData crop, CropTemplate cropTemplate)
         return crop.State == CropState.Plowed;
     }
 
-    public void Seed(CropTemplate cabbage)
+    public void Seed(CropTemplate cropTemplate)
     {
         crop.State = CropState.Growing;
-        crop.Name = cabbage.CropName;
-        crop.TileMap = cabbage.GrowthPhases.First().GrowthTile;
+        crop.CropGrowing = cropTemplate;
+        crop.TileMap = cropTemplate.GrowthPhases.First().GrowthTile;
     }
 
     public bool CanHarvest()
@@ -30,14 +30,16 @@ public class CropStateMachine(CropData crop, CropTemplate cropTemplate)
         return crop.State == CropState.ReadyForHarvest;
     }
 
-    public void Harvest()
+    public ItemResource Harvest()
     {
+        var itemGrown = crop.CropGrowing.ProducesWhenHarvested;
         crop.Reset();
+        return itemGrown;
     }
 
     public void Grow()
     {
-        if (cropTemplate == null)
+        if (crop.CropGrowing == null)
         {
             GD.PushWarning("Attempt to grow crop but no template");
             return;
@@ -52,7 +54,7 @@ public class CropStateMachine(CropData crop, CropTemplate cropTemplate)
         crop.DaysGrowing++;
 
         // check the template to see what growth phase we're in
-        var growthPhase = cropTemplate.GrowthPhases.First(gp =>
+        var growthPhase = crop.CropGrowing.GrowthPhases.First(gp =>
             crop.DaysGrowing >= gp.DaysStart &&
             crop.DaysGrowing <= gp.DaysEnd);
 
