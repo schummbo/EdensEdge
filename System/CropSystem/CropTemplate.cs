@@ -7,5 +7,7 @@ public partial class CropTemplate : Resource
 	[Export] public string CropName { get; set; }
 
 	[Export] public GrowthPhase[] GrowthPhases { get; set; }
+
+	[Export] public ItemResource ProducesWhenHarvested { get; set; }
 }
 

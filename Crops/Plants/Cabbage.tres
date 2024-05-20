@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CropTemplate" load_steps=6 format=3 uid="uid://crx5rp17w7lvk"]
+[gd_resource type="Resource" script_class="CropTemplate" load_steps=7 format=3 uid="uid://crx5rp17w7lvk"]
 
 [ext_resource type="Script" path="res://System/CropSystem/GrowthPhase.cs" id="1_agd5n"]
 [ext_resource type="Script" path="res://System/CropSystem/CropTemplate.cs" id="2_gwsi0"]
+[ext_resource type="Resource" uid="uid://dpxswxqn020ck" path="res://Crops/HarvestedCrops/HarvestedCabbage.tres" id="2_sb1ce"]
 
 [sub_resource type="Resource" id="Resource_5p42d"]
 script = ExtResource("1_agd5n")
@@ -28,3 +29,4 @@ IsLast = true
 script = ExtResource("2_gwsi0")
 CropName = "Cabbage"
 GrowthPhases = Array[Object]([SubResource("Resource_5p42d"), SubResource("Resource_lj3eu"), SubResource("Resource_ml8i3")])
+ProducesWhenHarvested = ExtResource("2_sb1ce")

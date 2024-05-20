@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=2 format=3 uid="uid://dpxswxqn020ck"]
+
+[ext_resource type="Script" path="res://System/InventorySystem/ItemResource.cs" id="1_1jubd"]
+
+[resource]
+script = ExtResource("1_1jubd")
+Name = ""
+TileSet = 2
+TileSetPosition = Vector2i(5, 8)
+Stackable = true
+DestroyedOnUse = false

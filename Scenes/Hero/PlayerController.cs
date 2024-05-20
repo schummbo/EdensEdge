@@ -5,6 +5,8 @@ namespace EdensEdge.Scripts;
 
 public partial class PlayerController : CharacterBody2D
 {
+    private static ItemResource hands = GD.Load<ItemResource>("res://Tools/Hands.tres");
+
     private ItemResource equippedItem;
     private bool isMoving;
     private Vector2 facingDirection;
@@ -16,13 +18,14 @@ public partial class PlayerController : CharacterBody2D
 
     public override void _Ready()
     {
+        this.equippedItem = hands;
         this.animationTree = this.GetNode<AnimationTree>("AnimationTree");
         EventBus.Instance.OnInventoryItemSelected += HandleInventoryItemSelected;
     }
 
     private void HandleInventoryItemSelected(ItemResource resource)
     {
-        this.equippedItem = resource;
+        this.equippedItem = resource ?? hands;
     }
 
 
@@ -38,7 +41,6 @@ public partial class PlayerController : CharacterBody2D
     {
         ProcessAnimation();
     }
-
 
     public override void _PhysicsProcess(double delta)
     {
@@ -69,7 +71,12 @@ public partial class PlayerController : CharacterBody2D
         if (inputEvent.IsActionPressed("useitem"))
         {
             bool interacted = FarmingManager.Instance.Interact(equippedItem);
-            GD.Print("UseItem: " + interacted);
+
+            if (interacted)
+                if (equippedItem.DestroyedOnUse)
+                {
+                    EventBus.Instance.InventoryItemUsed(equippedItem);
+                }
         }
 
         if (inputEvent.IsActionPressed("tick"))

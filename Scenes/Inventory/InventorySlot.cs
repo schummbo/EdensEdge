@@ -29,24 +29,35 @@ public partial class InventorySlot : Panel
 		}
 	}
 
-	public void Update(ItemResource newResource)
+	public bool TryAddInventory(ItemResource newResource, int amountToAdd)
 	{
+		bool added = false;
+
 		if (this.itemResource == null)
 		{
 			this.itemResource = newResource;
-			amount = 1;
+			this.amount = amountToAdd;
+			added = true;
 		}
 		else if (newResource == this.itemResource)
 		{
-			amount++;
+			if (this.itemResource.Stackable)
+			{
+				this.amount += amountToAdd;
+				added = true;
+			}
 		}
 		else if (newResource == null)
 		{
 			this.itemResource = null;
-			amount = 0;
+			this.amount = 0;
+			added = true;
 		}
 
-		UpdateVisual();
+		if (added)
+			UpdateVisual();
+
+		return added;
 	}
 
 	private void UpdateVisual()
@@ -58,12 +69,31 @@ public partial class InventorySlot : Panel
 		}
 		else
 		{
-			this.itemVisual.Texture = itemResource.Texture;
+			this.itemVisual.Texture = ImageUtilities.TextureFromTileset(itemResource.TileSet, itemResource.TileSetPosition);
 			this.itemVisual.Visible = true;
 
 			this.amountLabel.Text = amount.ToString();
-			this.amountLabel.Visible = amount > 0;
+			this.amountLabel.Visible = amount > 0 && itemResource.Stackable;
 		}
 	}
 
+	internal bool TryReduceInventory(ItemResource resource, int amountToReduce)
+	{
+		if (this.itemResource == resource)
+		{
+			this.amount -= amountToReduce;
+			if (this.amount <= 0)
+			{
+				this.itemResource = null;
+				this.amount = 0;
+
+				EventBus.Instance.InventoryItemSelected(null);
+			}
+
+			UpdateVisual();
+			return true;
+		}
+
+		return false;
+	}
 }
