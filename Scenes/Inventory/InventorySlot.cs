@@ -7,8 +7,9 @@ public partial class InventorySlot : Panel
 	private Label amountLabel;
 	private int amount;
 	private ItemResource itemResource;
+	private ColorRect selectedHighlight;
 
-	public bool IsSelected { get; set; }
+	private bool isSelected;
 
 	public Action<InventorySlot> OnSelected { get; set; }
 
@@ -17,14 +18,25 @@ public partial class InventorySlot : Panel
 	{
 		itemVisual = GetNode<Sprite2D>("CenterContainer/Panel/ItemDisplay");
 		amountLabel = GetNode<Label>("CenterContainer/Panel/Label");
+		selectedHighlight = GetNode<ColorRect>("CenterContainer/SelectedHighlight");
 		this.GuiInput += HandleInput;
+	}
+
+	public void SetSelected(bool isSelected)
+	{
+		this.isSelected = isSelected;
+		UpdateVisual();
 	}
 
 	private void HandleInput(InputEvent inputEvent)
 	{
 		if (inputEvent.IsActionPressed("useitem"))
 		{
-			IsSelected = true;
+			SetSelected(true);
+			// propagate event up to whole inventory
+			this.OnSelected(this);
+
+			// propagate item selected to rest of game
 			EventBus.Instance.InventoryItemSelected(this.itemResource);
 		}
 	}
@@ -75,6 +87,8 @@ public partial class InventorySlot : Panel
 			this.amountLabel.Text = amount.ToString();
 			this.amountLabel.Visible = amount > 0 && itemResource.Stackable;
 		}
+
+		selectedHighlight.Visible = isSelected;
 	}
 
 	internal bool TryReduceInventory(ItemResource resource, int amountToReduce)

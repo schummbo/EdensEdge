@@ -55,7 +55,7 @@ public partial class InventoryUI : Control
 		{
 			if (slot != selectedSlot)
 			{
-				slot.IsSelected = false;
+				slot.SetSelected(false);
 			}
 		}
 	}
