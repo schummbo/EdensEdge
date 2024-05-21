@@ -141,7 +141,7 @@ public partial class FarmingManager : Node2D
 		{
 			if (crop.State != CropState.Growing)
 			{
-				return;
+				continue;
 			}
 
 			var sm = new CropStateMachine(crop);
