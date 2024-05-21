@@ -30,3 +30,4 @@ script = ExtResource("2_gwsi0")
 CropName = "Cabbage"
 GrowthPhases = Array[Object]([SubResource("Resource_5p42d"), SubResource("Resource_lj3eu"), SubResource("Resource_ml8i3")])
 ProducesWhenHarvested = ExtResource("2_sb1ce")
+NumberProduced = 1

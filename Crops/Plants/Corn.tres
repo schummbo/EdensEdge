@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="CropTemplate" load_steps=9 format=3 uid="uid://bxevrfdifofs4"]
+
+[ext_resource type="Script" path="res://System/CropSystem/CropTemplate.cs" id="1_s3qil"]
+[ext_resource type="Script" path="res://System/CropSystem/GrowthPhase.cs" id="1_x43mu"]
+[ext_resource type="Resource" uid="uid://c7xn6ahtmg176" path="res://Crops/HarvestedCrops/HarvestedCorn.tres" id="2_ft2c3"]
+
+[sub_resource type="Resource" id="Resource_6sxb7"]
+script = ExtResource("1_x43mu")
+DaysStart = 0
+DaysEnd = 1
+GrowthTile = Vector2i(0, 4)
+IsLast = false
+
+[sub_resource type="Resource" id="Resource_vpffc"]
+script = ExtResource("1_x43mu")
+DaysStart = 2
+DaysEnd = 4
+GrowthTile = Vector2i(1, 4)
+IsLast = false
+
+[sub_resource type="Resource" id="Resource_1kayi"]
+script = ExtResource("1_x43mu")
+DaysStart = 5
+DaysEnd = 7
+GrowthTile = Vector2i(3, 4)
+IsLast = false
+
+[sub_resource type="Resource" id="Resource_ojnc1"]
+script = ExtResource("1_x43mu")
+DaysStart = 8
+DaysEnd = 10
+GrowthTile = Vector2i(4, 4)
+IsLast = false
+
+[sub_resource type="Resource" id="Resource_7w27d"]
+script = ExtResource("1_x43mu")
+DaysStart = 11
+DaysEnd = 11
+GrowthTile = Vector2i(5, 4)
+IsLast = true
+
+[resource]
+script = ExtResource("1_s3qil")
+CropName = "Corn"
+GrowthPhases = Array[Object]([SubResource("Resource_6sxb7"), SubResource("Resource_vpffc"), SubResource("Resource_1kayi"), SubResource("Resource_ojnc1"), SubResource("Resource_7w27d")])
+ProducesWhenHarvested = ExtResource("2_ft2c3")
+NumberProduced = 3

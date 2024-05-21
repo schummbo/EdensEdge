@@ -4,5 +4,6 @@ public enum TileSets
     Marker = 1,
     Crops = 2,
     Seeds = 3,
-    Tools = 4
+    Tools = 4,
+    CarryItems = 5
 }
