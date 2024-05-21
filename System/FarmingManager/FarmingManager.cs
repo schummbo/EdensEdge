@@ -24,7 +24,9 @@ public partial class FarmingManager : Node2D
 		// initialize the fields dynamically somehow
 		crops = new Dictionary<Vector2, CropData>
 		{
-			{ new Vector2I(19, 12), new CropData { Tile = new Vector2I(19, 12) } }
+			{ new Vector2I(19, 12), new CropData { Tile = new Vector2I(19, 12) } },
+			{ new Vector2I(19, 13), new CropData { Tile = new Vector2I(19, 13) } }
+
 		};
 	}
 
@@ -124,8 +126,8 @@ public partial class FarmingManager : Node2D
 
 		if (stateMachine.CanHarvest())
 		{
-			var grown = stateMachine.Harvest();
-			EventBus.Instance.InventoryItemAdded(grown, 1);
+			var (grown, amount) = stateMachine.Harvest();
+			EventBus.Instance.InventoryItemAdded(grown, amount);
 			return true;
 		}
 

@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_1jubd")
-Name = ""
-TileSet = 2
-TileSetPosition = Vector2i(5, 8)
+Name = "Cabbage"
+TileSet = 5
+TileSetPosition = Vector2i(8, 0)
 Stackable = true
 DestroyedOnUse = false

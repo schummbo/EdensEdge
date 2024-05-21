@@ -30,11 +30,12 @@ public class CropStateMachine(CropData crop)
         return crop.State == CropState.ReadyForHarvest;
     }
 
-    public ItemResource Harvest()
+    public (ItemResource, int) Harvest()
     {
         var itemGrown = crop.CropGrowing.ProducesWhenHarvested;
+        var numProduced = crop.CropGrowing.NumberProduced;
         crop.Reset();
-        return itemGrown;
+        return (itemGrown, numProduced);
     }
 
     public void Grow()

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://y8piflkcwlkx"]
+
+[ext_resource type="Resource" uid="uid://bxevrfdifofs4" path="res://Crops/Plants/Corn.tres" id="1_6iik1"]
+[ext_resource type="Script" path="res://System/InventorySystem/ItemResource.cs" id="1_8mlev"]
+
+[resource]
+script = ExtResource("1_8mlev")
+Name = "Corn Seed"
+TileSet = 3
+TileSetPosition = Vector2i(4, 0)
+ProducesWhenGrown = ExtResource("1_6iik1")
+Stackable = true
+DestroyedOnUse = true

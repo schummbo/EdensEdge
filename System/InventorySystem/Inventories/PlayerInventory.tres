@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="Inventory" load_steps=4 format=3 uid="uid://c1of8pax2crcy"]
+[gd_resource type="Resource" script_class="Inventory" load_steps=5 format=3 uid="uid://c1of8pax2crcy"]
 
 [ext_resource type="Resource" uid="uid://bo4chr1gnon0n" path="res://Tools/Hoe.tres" id="1_d6fl0"]
 [ext_resource type="Script" path="res://System/InventorySystem/Inventory.cs" id="1_jli5r"]
 [ext_resource type="Resource" uid="uid://cr2hyk7ug4laq" path="res://Crops/Seeds/CabbageSeed.tres" id="2_s1kbv"]
+[ext_resource type="Resource" uid="uid://y8piflkcwlkx" path="res://Crops/Seeds/CornSeed.tres" id="3_ul7a3"]
 
 [resource]
 script = ExtResource("1_jli5r")
-Items = Array[Object]([ExtResource("1_d6fl0"), ExtResource("2_s1kbv"), null, null, null, null, null, null, null, null, null, null])
+Items = Array[Object]([ExtResource("1_d6fl0"), ExtResource("2_s1kbv"), ExtResource("3_ul7a3"), null, null, null, null, null, null, null, null, null])
