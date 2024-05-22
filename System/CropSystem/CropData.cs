@@ -2,6 +2,11 @@ using Godot;
 
 public record CropData
 {
+    public CropData(Vector2I tile)
+    {
+        Tile = tile;
+    }
+
     public Vector2I Tile { get; set; }
     public CropTemplate CropGrowing { get; set; }
     public CropState State { get; set; }

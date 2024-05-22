@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+EventBus="*res://System/EventBus/EventBus.cs"
 InteractionManager="*res://System/InteractionManager/InteractionManager.tscn"
 FarmingManager="*res://System/FarmingManager/FarmingManager.tscn"
-EventBus="*res://System/EventBus/EventBus.cs"
 
 [display]
 
