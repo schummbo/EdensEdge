@@ -23,11 +23,35 @@ public partial class PlayerController : CharacterBody2D
         EventBus.Instance.OnInventoryItemSelected += HandleInventoryItemSelected;
     }
 
+    public override void _UnhandledInput(InputEvent inputEvent)
+    {
+        if (inputEvent.IsActionPressed("interact"))
+        {
+            var interacted = InteractionManager.Instance.Interact(equippedItem);
+            GD.Print("Interacted: " + interacted);
+        }
+
+        if (inputEvent.IsActionPressed("useitem"))
+        {
+            bool interacted = FarmingManager.Instance.Interact(equippedItem);
+
+            if (interacted)
+                if (equippedItem.DestroyedOnUse)
+                {
+                    EventBus.Instance.InventoryItemUsed(equippedItem);
+                }
+        }
+
+        if (inputEvent.IsActionPressed("tick"))
+        {
+            FarmingManager.Instance.HandleTick();
+        }
+    }
+
     private void HandleInventoryItemSelected(ItemResource resource)
     {
         this.equippedItem = resource ?? hands;
     }
-
 
     private void ProcessAnimation()
     {
@@ -58,30 +82,5 @@ public partial class PlayerController : CharacterBody2D
         Velocity = velocity;
 
         MoveAndSlide();
-    }
-
-    public override void _Input(InputEvent inputEvent)
-    {
-        if (inputEvent.IsActionPressed("interact"))
-        {
-            var interacted = InteractionManager.Instance.Interact(equippedItem);
-            GD.Print("Interacted: " + interacted);
-        }
-
-        if (inputEvent.IsActionPressed("useitem"))
-        {
-            bool interacted = FarmingManager.Instance.Interact(equippedItem);
-
-            if (interacted)
-                if (equippedItem.DestroyedOnUse)
-                {
-                    EventBus.Instance.InventoryItemUsed(equippedItem);
-                }
-        }
-
-        if (inputEvent.IsActionPressed("tick"))
-        {
-            FarmingManager.Instance.HandleTick();
-        }
     }
 }
