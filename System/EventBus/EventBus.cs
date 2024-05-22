@@ -13,6 +13,7 @@ public partial class EventBus : Node
     public event Action<ItemResource> OnInventoryItemSelected;
     public event Action<ItemResource> OnInventoryItemUsed;
     public event Action<ItemResource, int> OnInventoryItemAdded;
+    public event Action<string> OnFieldLoaded;
 
     public void InventoryItemSelected(ItemResource itemResource)
     {
@@ -27,5 +28,10 @@ public partial class EventBus : Node
     internal void InventoryItemAdded(ItemResource item, int amountToAdd)
     {
         this.OnInventoryItemAdded(item, amountToAdd);
+    }
+
+    public void FieldLoaded(string fieldName)
+    {
+        this.OnFieldLoaded(fieldName);
     }
 }

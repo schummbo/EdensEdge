@@ -2,6 +2,7 @@ using EdensEdge.Scripts;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class FarmingManager : Node2D
 {
@@ -12,7 +13,9 @@ public partial class FarmingManager : Node2D
 
 	private Vector2I? previousMarker;
 
-	private Dictionary<Vector2, CropData> crops;
+	private Dictionary<string, Dictionary<Vector2I, CropData>> cropsByField = new();
+
+	private Dictionary<Vector2I, CropData> currentCrops;
 
 	public override void _Ready()
 	{
@@ -21,13 +24,42 @@ public partial class FarmingManager : Node2D
 		player = this.GetTree().GetFirstNodeInGroup("Player") as PlayerController;
 		field = this.GetTree().GetFirstNodeInGroup("Field") as Field;
 
-		// initialize the fields dynamically somehow
-		crops = new Dictionary<Vector2, CropData>
-		{
-			{ new Vector2I(19, 12), new CropData { Tile = new Vector2I(19, 12) } },
-			{ new Vector2I(19, 13), new CropData { Tile = new Vector2I(19, 13) } }
+		EventBus.Instance.OnFieldLoaded += HandleFieldLoaded;
+	}
 
-		};
+	private void HandleFieldLoaded(string fieldName)
+	{
+		field = this.GetTree().GetNodesInGroup("Field")
+								 .Select(n => n as Field)
+								 .Where(n => n != null && n.Name == fieldName)
+								 .FirstOrDefault();
+
+		if (cropsByField.TryGetValue(fieldName, out Dictionary<Vector2I, CropData> crops))
+		{
+			currentCrops = crops;
+			return;
+		}
+
+		var fieldCells = field.GetUsedCells((int)TileMapLayers.Field);
+
+		Dictionary<Vector2I, CropData> cropData = new Dictionary<Vector2I, CropData>();
+
+		for (int i = 0; i < fieldCells.Count; i++)
+		{
+			var position = fieldCells[i];
+
+			var tileData = field.GetCellTileData((int)TileMapLayers.Field, position);
+			var isFarmable = (bool)tileData.GetCustomData("farmable");
+
+			if (isFarmable)
+			{
+				cropData.Add(position, new CropData(position));
+			}
+		}
+
+		cropsByField.Add(fieldName, cropData);
+
+		currentCrops = cropData;
 	}
 
 	public override void _Process(double delta)
@@ -92,7 +124,7 @@ public partial class FarmingManager : Node2D
 
 	private void RenderTile(Vector2I tile)
 	{
-		var crop = crops[tile];
+		var crop = currentCrops[tile];
 		field.UpdateCrop(crop);
 	}
 
@@ -104,7 +136,7 @@ public partial class FarmingManager : Node2D
 			return false;
 		}
 
-		if (!crops.TryGetValue(tile, out CropData crop))
+		if (!currentCrops.TryGetValue(tile, out CropData crop))
 		{
 			return false;
 		}
@@ -137,17 +169,20 @@ public partial class FarmingManager : Node2D
 	//TODO: Make private and handle tick event from time keeper
 	public void HandleTick()
 	{
-		foreach (CropData crop in crops.Values)
+		foreach (var cropData in cropsByField.Values)
 		{
-			if (crop.State != CropState.Growing)
+			foreach (CropData crop in cropData.Values)
 			{
-				continue;
+				if (crop.State != CropState.Growing)
+				{
+					continue;
+				}
+
+				var sm = new CropStateMachine(crop);
+				sm.Grow();
+
+				field.UpdateCrop(crop);
 			}
-
-			var sm = new CropStateMachine(crop);
-			sm.Grow();
-
-			field.UpdateCrop(crop);
 		}
 	}
 }

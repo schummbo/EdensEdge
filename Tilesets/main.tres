@@ -927,12 +927,15 @@ texture = ExtResource("1_24t7c")
 5:6/0 = 0
 5:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:6/0/physics_layer_0/angular_velocity = 0.0
+5:6/0/custom_data_0 = true
 6:6/0 = 0
 6:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:6/0/physics_layer_0/angular_velocity = 0.0
+6:6/0/custom_data_0 = true
 7:6/0 = 0
 7:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:6/0/physics_layer_0/angular_velocity = 0.0
+7:6/0/custom_data_0 = true
 14:6/0 = 0
 14:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 14:6/0/physics_layer_0/angular_velocity = 0.0
@@ -5025,6 +5028,7 @@ texture = ExtResource("1_24t7c")
 8:6/0 = 0
 8:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:6/0/physics_layer_0/angular_velocity = 0.0
+8:6/0/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gm484"]
 texture = ExtResource("2_ofwhx")
@@ -6042,6 +6046,8 @@ texture = ExtResource("6_37uww")
 
 [resource]
 physics_layer_0/collision_layer = 1
+custom_data_layer_0/name = "farmable"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_x213k")
 sources/1 = SubResource("TileSetAtlasSource_gm484")
 sources/2 = SubResource("TileSetAtlasSource_lfxib")

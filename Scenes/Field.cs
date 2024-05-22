@@ -5,6 +5,11 @@ public partial class Field : TileMap
 	private Vector2I UnplowedTile = new Vector2I(5, 6);
 	private Vector2I PlowedTile = new Vector2I(8, 6);
 
+	public override void _Ready()
+	{
+		EventBus.Instance.FieldLoaded(this.Name);
+	}
+
 	internal void SetMarker(Vector2I closestToMouse)
 	{
 		this.SetCell(
