@@ -7,8 +7,8 @@ public partial class TimeKeeper : Node
 	private const float MINUTES_PER_HOUR = 60;
 	private const float INGAME_TO_REAL_MINUTE_DURATION = (2 * (float)Math.PI) / MINUTES_PER_DAY;
 
-	[Export] public float INGAME_SPEED { get; set; } = 60;
-	[Export] public int InitialHour { get; set; } = 1;
+	public float INGAME_SPEED { get; set; } = 60;
+	public int InitialHour { get; set; } = 1;
 
 	private float time = 0.0f;
 	private int pastMinute = -1;
@@ -16,13 +16,11 @@ public partial class TimeKeeper : Node
 
 	private TimePhase pastPhase;
 
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		time = INGAME_TO_REAL_MINUTE_DURATION * MINUTES_PER_HOUR * InitialHour;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		time += (float)delta * INGAME_TO_REAL_MINUTE_DURATION * INGAME_SPEED;
@@ -88,5 +86,4 @@ public partial class TimeKeeper : Node
 
 		return phase;
 	}
-
 }
