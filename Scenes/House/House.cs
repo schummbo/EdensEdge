@@ -14,12 +14,6 @@ public partial class House : StaticBody2D
 		sconce = GetNode<Light>("Light");
 
 		EventBus.Instance.OnTimePhaseTick += HandlePhaseTick;
-		EventBus.Instance.OnTimeTick += HandleTimeTick;
-	}
-
-	private void HandleTimeTick(int day, int hour, int minute, float rawTime)
-	{
-
 	}
 
 	private void HandlePhaseTick(TimePhase phase)
