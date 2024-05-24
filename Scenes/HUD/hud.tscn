@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://cb3hybstp3dj8"]
+
+[ext_resource type="PackedScene" uid="uid://bdgfmo84pvty7" path="res://Scenes/Inventory/Inventory.tscn" id="2_ao081"]
+[ext_resource type="Resource" uid="uid://c1of8pax2crcy" path="res://System/InventorySystem/Inventories/PlayerInventory.tres" id="3_hfame"]
+[ext_resource type="Texture2D" uid="uid://covtqomcoh037" path="res://Scenes/DayNightCycle/DayNightCycle.tres" id="3_kgpdi"]
+[ext_resource type="Script" path="res://Scenes/HUD/Clock.cs" id="3_p314o"]
+[ext_resource type="Texture2D" uid="uid://dur4asvn7qrn4" path="res://Scenes/DayNightCycle/arrow.tres" id="4_lwo77"]
+[ext_resource type="FontFile" uid="uid://q17psgiodmfl" path="res://Art/Fonts/pixelmix.ttf" id="6_slph1"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="Inventory UI" parent="." instance=ExtResource("2_ao081")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -57.0
+offset_right = 64.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+PlayerInventory = ExtResource("3_hfame")
+
+[node name="Clock" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -68.0
+offset_bottom = 49.0
+grow_horizontal = 0
+script = ExtResource("3_p314o")
+
+[node name="DayInfo" type="TextureRect" parent="Clock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_kgpdi")
+
+[node name="Arrow" type="TextureRect" parent="Clock"]
+layout_mode = 0
+offset_left = 46.375
+offset_top = 22.625
+offset_right = 86.375
+offset_bottom = 62.625
+rotation = -1.5708
+pivot_offset = Vector2(2, 2.375)
+texture = ExtResource("4_lwo77")
+stretch_mode = 2
+
+[node name="DayContainer" type="CenterContainer" parent="Clock"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 5.0
+offset_right = 47.0
+offset_bottom = 23.0
+
+[node name="DayLabel" type="Label" parent="Clock/DayContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_slph1")
+theme_override_font_sizes/font_size = 11
+text = "Day 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeContainer" type="CenterContainer" parent="Clock"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 28.0
+offset_right = 46.0
+offset_bottom = 43.0
+
+[node name="TimeLabel" type="Label" parent="Clock/TimeContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_slph1")
+theme_override_font_sizes/font_size = 13
+text = "12:00"

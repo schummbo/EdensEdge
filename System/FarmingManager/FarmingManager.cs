@@ -25,6 +25,7 @@ public partial class FarmingManager : Node2D
 		field = this.GetTree().GetFirstNodeInGroup("Field") as Field;
 
 		EventBus.Instance.OnFieldLoaded += HandleFieldLoaded;
+		EventBus.Instance.OnDayTick += HandleDayTick;
 	}
 
 	private void HandleFieldLoaded(string fieldName)
@@ -166,8 +167,7 @@ public partial class FarmingManager : Node2D
 		return false;
 	}
 
-	//TODO: Make private and handle tick event from time keeper
-	public void HandleTick()
+	private void HandleDayTick(int day)
 	{
 		foreach (var cropData in cropsByField.Values)
 		{
