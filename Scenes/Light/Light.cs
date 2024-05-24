@@ -22,17 +22,27 @@ public partial class Light : Node2D
 			timer.Start(0.1f);
 	}
 
+	public void TurnOn()
+	{
+		timer.Start();
+		pointLight2D.Enabled = true;
+	}
+
+	public void TurnOff()
+	{
+		timer.Stop();
+		pointLight2D.Enabled = false;
+	}
+
 	public void Toggle()
 	{
 		if (pointLight2D.Enabled)
 		{
-			timer.Stop();
-			pointLight2D.Enabled = false;
+			TurnOff();
 		}
 		else
 		{
-			timer.Start();
-			pointLight2D.Enabled = true;
+			TurnOn();
 		}
 	}
 

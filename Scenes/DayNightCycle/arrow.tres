@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dur4asvn7qrn4"]
+
+[ext_resource type="Texture2D" uid="uid://dh8afkiqy0sex" path="res://Scenes/DayNightCycle/daynightcycle-ui.png" id="1_18ncc"]
+
+[resource]
+atlas = ExtResource("1_18ncc")
+region = Rect2(1, 47, 17, 5)

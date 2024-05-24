@@ -102,4 +102,3 @@ shape = SubResource("RectangleShape2D_waxwd")
 
 [node name="Interactable" parent="." instance=ExtResource("2_q17ee")]
 position = Vector2(-7, 5)
-scale = Vector2(1, 1)

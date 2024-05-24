@@ -41,11 +41,6 @@ public partial class PlayerController : CharacterBody2D
                     EventBus.Instance.InventoryItemUsed(equippedItem);
                 }
         }
-
-        if (inputEvent.IsActionPressed("tick"))
-        {
-            FarmingManager.Instance.HandleTick();
-        }
     }
 
     private void HandleInventoryItemSelected(ItemResource resource)
