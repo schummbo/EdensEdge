@@ -20,12 +20,12 @@ public partial class House : StaticBody2D
 	{
 		if (phase == TimePhase.Dusk || phase == TimePhase.Night)
 		{
-			sconce.TurnOn();
+			sconce.TurnOnRandom();
 		}
 
 		if (phase == TimePhase.Dawn)
 		{
-			sconce.TurnOff();
+			sconce.TurnOffRandom();
 		}
 	}
 
