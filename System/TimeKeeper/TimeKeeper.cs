@@ -7,7 +7,7 @@ public partial class TimeKeeper : Node
 	private const float MINUTES_PER_HOUR = 60;
 	private const float INGAME_TO_REAL_MINUTE_DURATION = (2 * (float)Math.PI) / MINUTES_PER_DAY;
 
-	public float INGAME_SPEED { get; set; } = 60;
+	public float INGAME_SPEED { get; set; } = 10;
 	public int InitialHour { get; set; } = 1;
 
 	private float time = 0.0f;

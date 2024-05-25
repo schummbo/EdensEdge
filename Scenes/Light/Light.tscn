@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cblh6gj7ofmbb" path="res://Art/Lamps/sconce.png" id="2_rb8l5"]
 
 [sub_resource type="Gradient" id="Gradient_adprp"]
-offsets = PackedFloat32Array(0, 0.519481)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0, 0.136646, 0.363354, 0.692547)
+colors = PackedColorArray(1, 1, 1, 1, 0.820757, 0.820757, 0.820757, 1, 0.390572, 0.390572, 0.390572, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_o8wuu"]
 gradient = SubResource("Gradient_adprp")
@@ -16,11 +16,13 @@ fill_from = Vector2(0.5, 0.5)
 script = ExtResource("1_vw8cn")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-scale = Vector2(1.32031, 1.20313)
-enabled = false
+scale = Vector2(1.83203, 1.66943)
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_o8wuu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.115979, 0.115979)
 texture = ExtResource("2_rb8l5")
 flip_h = true
+
+[node name="Timer" type="Timer" parent="."]

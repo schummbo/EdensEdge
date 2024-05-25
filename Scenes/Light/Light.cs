@@ -5,33 +5,59 @@ public partial class Light : Node2D
 {
 	private PointLight2D pointLight2D;
 
-	private Timer timer;
+	private Timer flickerTimer;
+
+	private Timer randomOffTimer;
 
 	private Random random;
 
 	public override void _Ready()
 	{
 		pointLight2D = this.GetNode<PointLight2D>("PointLight2D");
-		timer = new Timer();
+		flickerTimer = new Timer();
+		randomOffTimer = new Timer();
 		random = new Random();
 
-		AddChild(timer);
-		timer.Timeout += OnTimerTimeout;
+		AddChild(randomOffTimer);
+		AddChild(flickerTimer);
+		flickerTimer.Timeout += OnTimerTimeout;
 
 		if (pointLight2D.Enabled)
-			timer.Start(0.1f);
+			flickerTimer.Start(0.1f);
 	}
 
 	public void TurnOn()
 	{
-		timer.Start();
+		flickerTimer.Start();
 		pointLight2D.Enabled = true;
+	}
+
+	public void TurnOnRandom()
+	{
+		// generate random timer time
+		var timeSeconds = (int)this.random.NextInt64(1, 10);
+		// on tick, turn on
+
+		randomOffTimer.WaitTime = timeSeconds;
+		randomOffTimer.Timeout += TurnOn;
+		randomOffTimer.Start();
 	}
 
 	public void TurnOff()
 	{
-		timer.Stop();
+		flickerTimer.Stop();
 		pointLight2D.Enabled = false;
+	}
+
+	public void TurnOffRandom()
+	{
+		// generate random timer time
+		var timeSeconds = (int)this.random.NextInt64(1, 10);
+		// on tick, turn on
+
+		randomOffTimer.WaitTime = timeSeconds;
+		randomOffTimer.Timeout += TurnOff;
+		randomOffTimer.Start();
 	}
 
 	public void Toggle()
